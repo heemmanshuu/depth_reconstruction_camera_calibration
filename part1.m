@@ -1,12 +1,12 @@
 %PART 1 - SET 1 Features Code
 
 % Define image paths
-imagePaths = {'data/DSCF4180.jpg', 'data/DSCF4181.jpg', 'data/DSCF4184.jpg', 'data/DSCF4187.jpg'};
-maskPaths = {'data/DSCF4180Mask.jpg', 'data/DSCF4181Mask.jpg', 'data/DSCF4184Mask.jpg', 'data/DSCF4187Mask.jpg'};
+imagePaths = {'../data/DSCF4180.jpg', '../data/DSCF4181.jpg', '../data/DSCF4184.jpg', '../data/DSCF4187.jpg'};
+maskPaths = {'../data/DSCF4180Mask.jpg', '../data/DSCF4181Mask.jpg', '../data/DSCF4184Mask.jpg', '../data/DSCF4187Mask.jpg'};
 
 %SET 2
-imagePaths = {'data/DSCF4180.jpg', 'data/DSCF4184.jpg', 'data/DSCF4189.jpg', 'data/DSCF4197.jpg'};
-maskPaths = {'data/DSCF4180Mask.jpg', 'data/DSCF4184Mask.jpg', 'data/DSCF4189Mask.jpg', 'data/DSCF4197Mask.jpg'};
+imagePaths = {'../data/DSCF4180.jpg', '../data/DSCF4184.jpg', '../data/DSCF4189.jpg', '../data/DSCF4197.jpg'};
+maskPaths = {'../data/DSCF4180Mask.jpg', '../data/DSCF4184Mask.jpg', '../data/DSCF4189Mask.jpg', '../data/DSCF4197Mask.jpg'};
 
 % SIFT threshold for filtering
 threshold = 15000;

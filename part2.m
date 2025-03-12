@@ -1,10 +1,10 @@
 clear; clc;
 
 % Define image paths
-set1Paths = {'data/DSCF4180.jpg', 'data/DSCF4181.jpg', 'data/DSCF4184.jpg', 'data/DSCF4187.jpg'};
-set2Paths = {'data/DSCF4189.jpg', 'data/DSCF4197.jpg'};
+set1Paths = {'../data/DSCF4180.jpg', '../data/DSCF4181.jpg', '../data/DSCF4184.jpg', '../data/DSCF4187.jpg'};
+set2Paths = {'../data/DSCF4189.jpg', '../data/DSCF4197.jpg'};
 
-img = imread('data/DSCF4184.jpg'); % Load image
+img = imread('../data/DSCF4184.jpg'); % Load image
 imshow(img);
 hold on;
 
