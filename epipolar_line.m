@@ -1,5 +1,8 @@
-img1 = imread('data/DSCF4189.jpg');
-img2 = imread('data/DSCF4197.jpg');
+% Expects ../code directory to be present with fundmatrix.m
+addpath('../code')
+
+img1 = imread('../data/DSCF4189.jpg');
+img2 = imread('../data/DSCF4197.jpg');
 
 x1 = 1000 * [
     0.3615, 1.3595;

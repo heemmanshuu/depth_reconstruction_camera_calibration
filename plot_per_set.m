@@ -21,9 +21,9 @@ ylabel('Y');
 zlabel('Z');
 % Set plot limits for better visualization
 axis equal;
-xlim([-200, 400]);
-ylim([-200, 400]);
-zlim([0, 500]);
+% xlim([-200, 400]);
+% ylim([-200, 400]);
+% zlim([0, 500]);
 title('Camera Position and Orientation');
 grid on;
 
@@ -46,7 +46,7 @@ for i = 1:length(imgPaths)
     % make R orthogonal on purpose
     [U, ~, V] = svd(R); 
     R_orthogonal = U * V';
-    R = R_orthogonal;
+    %R = R_orthogonal;
     
     figure(1);
     % Plot the position of the camera as a point (red dot)
@@ -54,7 +54,7 @@ for i = 1:length(imgPaths)
     
     % Plot the camera's local axes (coordinate system)
     % Define a unit length for the axes
-    axis_length = 50;  % You can adjust this length to make the axes visible
+    axis_length = 10000;  % You can adjust this length to make the axes visible
     
     % Plot each axis (Red: X, Green: Y, Blue: Z)
     quiver3(camera_position(1), camera_position(2), camera_position(3), axis_length * R(1, 1), axis_length * R(2, 1), axis_length * R(3, 1), 'r', 'LineWidth', 2); % X-axis
