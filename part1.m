@@ -19,20 +19,32 @@ numImages = length(imagePaths);
 for i = 1:numImages
     for j = i+1:numImages
         sortedMatches = extract_sift(imagePaths{i}, imagePaths{j}, maskPaths{i}, maskPaths{j}, threshold);
+        
+        I1 = im2single(rgb2gray(imread(imagePaths{i})));
+        I2 = im2single(rgb2gray(imread(imagePaths{j})));
+
+        % Compute SIFT features
+        [f1, d1] = vl_sift(I1);
+        [f2, d2] = vl_sift(I2);
+
+        % Load and apply masks
+        mask1 = im2bw(imread(maskPaths{i}));
+        mask2 = im2bw(imread(maskPaths{j}));
+    
+        valid1 = mask1(sub2ind(size(mask1), round(f1(2, :)), round(f1(1, :))));
+        valid2 = mask2(sub2ind(size(mask2), round(f2(2, :)), round(f2(1, :))));
+    
+        f1 = f1(:, valid1);
+        f2 = f2(:, valid2);
+        d1 = d1(:, valid1);
+        d2 = d2(:, valid2);
+
         % Select top 10 matches
         numBestMatches = min(10, size(sortedMatches, 2)); % Ensure we don't exceed available matches
         bestMatches = sortedMatches(:, 1:numBestMatches);
         
-        % Store the results - are these being used anywhere?
-        matchData.image1 = imagePaths{i};
-        matchData.image2 = imagePaths{j};
-        matchData.matches = bestMatches;
-        allMatches{end+1} = matchData;
-        
         % Display results
         fprintf('Matching %s and %s\n', imagePaths{i}, imagePaths{j});
-        fprintf('Total matches before filtering: %d\n', size(matches, 2));
-        fprintf('Valid matches after filtering: %d\n', size(filtered_matches, 2));
         fprintf('Displaying top %d matches.\n\n', numBestMatches);
         
         % Visualization of top 10 matches
