@@ -1,5 +1,7 @@
 % Expects ../code directory to be present with fundmatrix.m
-addpath('../code')
+% do not have the below line uncommented after adding ../code to path
+% don't know why but it causes issues
+%addpath('../code')
 
 img1 = imread('../data/DSCF4189.jpg');
 img2 = imread('../data/DSCF4197.jpg');

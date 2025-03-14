@@ -33,4 +33,9 @@ function sortedMatches = extract_sift(imgPath1, imgPath2, imgMask1, imgMask2, th
     % Sort filtered matches by scores (ascending order)
     [sortedScores, sortIdx] = sort(filtered_scores, 'ascend');
     sortedMatches = filtered_matches(:, sortIdx);
+
+    % % Limit to 150 matches
+    % maxPoints = 150;
+    % numMatches = min(maxPoints, size(sortedMatches, 2));
+    % sortedMatches = sortedMatches(:, 1:numMatches);  % Select up to 150 matches
 end

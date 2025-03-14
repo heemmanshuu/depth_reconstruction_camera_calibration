@@ -5,13 +5,14 @@ run('point_data.m')
 
 % Set 1
 imgPaths = {'../data/DSCF4180.jpg', '../data/DSCF4181.jpg', '../data/DSCF4184.jpg', '../data/DSCF4187.jpg'};
-world_points_list = {world_points_80, world_points_81, world_points_89, world_points_97};
-image_points_list = {image_points_80, image_points_81, image_points_89, image_points_97};
+world_points_list = {world_points_80, world_points_81, world_points_84, world_points_87};
+image_points_list = {image_points_80, image_points_81, image_points_84, image_points_87};
 
 % % Set 2
 % imgPaths = {'../data/DSCF4180.jpg', '../data/DSCF4181.jpg', '../data/DSCF4189.jpg', '../data/DSCF4197.jpg'};
-% world_points_list = {world_points_80, world_points_81, world_points_84, world_points_87};
-% image_points_list = {image_points_80, image_points_81, image_points_84, image_points_87};
+% world_points_list = {world_points_80, world_points_81, world_points_89, world_points_97};
+% image_points_list = {image_points_80, image_points_81, image_points_89, image_points_97};
+
 
 % figure for plotting camera position and orientation
 figure;
