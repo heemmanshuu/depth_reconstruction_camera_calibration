@@ -156,3 +156,17 @@ image_points_97 = 1000 * [
 2.0115, 1.0735;
 1.5715, 1.5215;
 ];
+
+% BELOW STUFF IS USED ONLY IN plot_both_sets.m
+
+% Set 1
+imagePathsSet1 = {'../data/DSCF4180.jpg', '../data/DSCF4181.jpg', '../data/DSCF4184.jpg', '../data/DSCF4187.jpg'};
+maskPathsSet1 = {'data/DSCF4180Mask.jpg', 'data/DSCF4181Mask.jpg', 'data/DSCF4184Mask.jpg', 'data/DSCF4187Mask.jpg'};
+world_points_list_Set1 = {world_points_80, world_points_81, world_points_84, world_points_87};
+image_points_list_Set1 = {image_points_80, image_points_81, image_points_84, image_points_87};
+
+% Set 2
+imagePathsSet2 = {'../data/DSCF4180.jpg', '../data/DSCF4181.jpg', '../data/DSCF4189.jpg', '../data/DSCF4197.jpg'};
+maskPathsSet2 = {'../data/DSCF4180Mask.jpg', '../data/DSCF4181Mask.jpg', '../data/DSCF4189Mask.jpg', '../data/DSCF4197Mask.jpg'};
+world_points_list_Set2 = {world_points_80, world_points_81, world_points_89, world_points_97};
+image_points_list_Set2 = {image_points_80, image_points_81, image_points_89, image_points_97};
