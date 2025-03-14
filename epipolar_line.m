@@ -1,7 +1,9 @@
+clear; clc;
+
 % Expects ../code directory to be present with fundmatrix.m
 % do not have the below line uncommented after adding ../code to path
 % don't know why but it causes issues
-%addpath('../code')
+addpath('../code')
 
 img1 = imread('../data/DSCF4189.jpg');
 img2 = imread('../data/DSCF4197.jpg');
@@ -36,36 +38,45 @@ x2 = 1000 * [
     0.9635, 0.7035;
 ];
 
-features = [1; 2; 3];
+features = [1, 2, 3];
 
-function draw_single_epipolar_line(img1, img2, x1, x2, F, idx1, idx2, draw_image)
+function draw_single_epipolar_line(img1, img2, x1, x2, F, idx, draw_image)
     % Show Image 1 with epipolar line and point
-    figure; imshow(img1); hold on;
-    title(['Epipolar Line for Feature ' num2str(idx1)]);
+    figure;
+    imshow(img1);
+    hold on;
+    title(['Epipolar Line for Feature ' num2str(idx)]);
     
     % Plot the relevant point in Image 1 (filled red circle)
-    scatter(x1(1, idx1), x1(2, idx1), 100, 'ro', 'filled'); 
+    scatter(x1(1, idx), x1(2, idx), 100, 'ro', 'filled'); 
     
     if draw_image == 1
         % Draw the epipolar line for the selected point in Image 1
-        draw_line(F' * x2(:, idx2), img1);
+        draw_line(F' * x2(:, idx), img1);
     end
+
+    hold off;
+
     
     % Show Image 2 with just the point
-    figure; imshow(img2); hold on;
-    title(['Feature ' num2str(idx1)]);
+    figure;
+    imshow(img2);
+    hold on;
+    title(['Feature ' num2str(idx)]);
     
     % Plot the relevant point in Image 2 (filled red circle)
-    scatter(x2(1, idx2), x2(2, idx2), 100, 'ro', 'filled');
+    scatter(x2(1, idx), x2(2, idx), 100, 'ro', 'filled');
     
     if draw_image == 2
         % Draw the epipolar line for the selected point in Image 2
-        draw_line(F * x1(:, idx1), img2);
+        draw_line(F * x1(:, idx), img2);
     end
+
+    hold off;
 end
 
 function draw_line(line, img)
-    [rows, cols, ~] = size(img);
+    [~, cols, ~] = size(img);
     x = [1, cols];  % Line spans the entire image width
     y = (-line(1) * x - line(3)) / line(2); % Solve for y = (-ax - c) / b
     plot(x, y, 'g', 'LineWidth', 1.5); % Plot line
@@ -96,6 +107,9 @@ end
 disp('Epipolar constraint values (should be close to zero):');
 disp(errors);
 
-for i = 1:size(features, 1)
-    draw_single_epipolar_line(img1, img2, x1_h, x2_h, F, features(i), features(i), 1);
+for i = 1:length(features)
+    draw_single_epipolar_line(img1, img2, x1_h, x2_h, F, features(i), 1);
 end
+
+
+rmpath('../code')
