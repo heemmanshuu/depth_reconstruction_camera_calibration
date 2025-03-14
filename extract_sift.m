@@ -1,4 +1,4 @@
-function sortedMatches = extract_sift(imgPath1, imgPath2, imgMask1, imgMask2, threshold)
+function [matchedPoints1_hom, matchedPoints2_hom] = extract_sift(imgPath1, imgPath2, imgMask1, imgMask2, threshold)
     % Load and preprocess images
     I1 = im2single(rgb2gray(imread(imgPath1)));
     I2 = im2single(rgb2gray(imread(imgPath2)));
@@ -34,8 +34,22 @@ function sortedMatches = extract_sift(imgPath1, imgPath2, imgMask1, imgMask2, th
     [sortedScores, sortIdx] = sort(filtered_scores, 'ascend');
     sortedMatches = filtered_matches(:, sortIdx);
 
-    % % Limit to 150 matches
-    % maxPoints = 150;
-    % numMatches = min(maxPoints, size(sortedMatches, 2));
-    % sortedMatches = sortedMatches(:, 1:numMatches);  % Select up to 150 matches
+    % Extract the matched feature indices
+    matches1 = sortedMatches(1, :);  % Indices in image 1
+    matches2 = sortedMatches(2, :);  % Indices in image 2
+    
+    % Extract the coordinates of the matched points in both images
+    matchedPoints1_x = f1(1, matches1);  % x-coordinates in image 1
+    matchedPoints1_y = f1(2, matches1);  % y-coordinates in image 1
+    
+    matchedPoints2_x = f2(1, matches2);  % x-coordinates in image 2
+    matchedPoints2_y = f2(2, matches2);  % y-coordinates in image 2
+    
+    % Optionally, create the matched points as a 2xN matrix
+    matchedPoints1 = [matchedPoints1_x; matchedPoints1_y];  % 2xN matrix for image 1
+    matchedPoints2 = [matchedPoints2_x; matchedPoints2_y];  % 2xN matrix for image 2
+    
+    matchedPoints1_hom = [matchedPoints1; ones(1, size(matchedPoints1, 2))];  % 3×N
+    matchedPoints2_hom = [matchedPoints2; ones(1, size(matchedPoints2, 2))];  % 3×N
+
 end
