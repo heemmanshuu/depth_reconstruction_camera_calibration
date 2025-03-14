@@ -18,8 +18,8 @@ function F = fundamental_matrix(x1, x2)
 end
 
 % Define image paths
-imagePaths = {'../data/DSCF4180.jpg', '../data/DSCF4181.jpg', '../data/DSCF4184.jpg', '../data/DSCF4187.jpg'};
-maskPaths = {'../data/DSCF4180Mask.jpg', '../data/DSCF4181Mask.jpg', '../data/DSCF4184Mask.jpg', '../data/DSCF4187Mask.jpg'};
+imagePaths = {'data/DSCF4180.jpg', 'data/DSCF4181.jpg', 'data/DSCF4184.jpg', 'data/DSCF4187.jpg'};
+maskPaths = {'data/DSCF4180Mask.jpg', 'data/DSCF4181Mask.jpg', 'data/DSCF4184Mask.jpg', 'data/DSCF4187Mask.jpg'};
 world_points_list = {world_points_80, world_points_81, world_points_84, world_points_87};
 image_points_list = {image_points_80, image_points_81, image_points_84, image_points_87};
 
@@ -47,8 +47,8 @@ end
 matchedPoints = cell(numImages, numImages);
 for i = 1:numImages
     for j = i+1:numImages
-        [matchedPoints1, matchedPoints2] = extract_sift(imagePaths{i}, imagePaths{j}, maskPaths{i}, maskPaths{j});
-        matchedPoints{i, j} = {matchedPoints1, matchedPoints2};
+        [matchedPoints1_hom, matchedPoints2_hom] = extract_sift(imagePaths{i}, imagePaths{j}, maskPaths{i}, maskPaths{j}, 25000);
+        matchedPoints{i, j} = {matchedPoints1_hom, matchedPoints2_hom};
     end
 end
 
@@ -62,21 +62,22 @@ for i = 1:numImages
         
         % Compute fundamental matrix
         [matchedPoints1, matchedPoints2] = deal(matchedPoints{i, j}{:});
-        F = fundamental_matrix(matchedPoints1, matchedPoints2);
+        if length(matchedPoints2) < 8 || length(matchedPoints1) < 8 
+            continue;
+        end
+        [F, ~, ~] = fundmatrix(matchedPoints1, matchedPoints2);
         
         % Check epipolar constraints
         inliers1 = [];
         inliers2 = [];
         
         for k = 1:size(matchedPoints1, 2)
-            x1 = [matchedPoints1(:, k); 1];
-            x2 = [matchedPoints2(:, k); 1];
             
             % Epipolar constraint
-            error = abs(x2' * F * x1);
+            error = abs(matchedPoints2(:, k)' * F * matchedPoints1(:, k));
             
             % Threshold for considering a match as valid
-            if error < 1e-3
+            if error < 1
                 inliers1 = [inliers1, matchedPoints1(:, k)];
                 inliers2 = [inliers2, matchedPoints2(:, k)];
             end
