@@ -72,12 +72,12 @@ for i = 1:numImages
 end
 
 % add point cloud to plot
-%points3D = create_point_cloud(imagePaths, maskPaths, P);
+points3D = create_point_cloud(imagePaths, maskPaths, P);
 
 % Plot 3D points in the same plot
 % 10 here is the point size. Change it to 50 or something to make the point
 % size bigger
-%scatter3(points3D(1,:), points3D(2,:), points3D(3,:), 10, 'r', 'filled');
+scatter3(points3D(1,:), points3D(2,:), points3D(3,:), 10, 'r', 'filled');
     
 %view(3);
 hold off;
