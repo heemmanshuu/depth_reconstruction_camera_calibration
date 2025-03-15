@@ -20,7 +20,7 @@ title('Image 2');
 hold on;
 
 % Number of points to select
-numPoints = 2;
+numPoints = 10;
 
 % Initialize storage for selected points
 image_points1 = zeros(numPoints, 2);
@@ -47,7 +47,15 @@ end
 
 % Print the selected points
 disp('Selected points in Image 1:');
-disp(image_points1);
+% disp(image_points1);
 
-disp('Selected points in Image 2:');
-disp(image_points2);
+for i = 1:numPoints
+    fprintf('%.4f, %.4f;\n', image_points1(i, 1)/1000, image_points1(i, 2)/1000);
+end
+
+disp('\nSelected points in Image 2:');
+% disp(image_points2);
+
+for i = 1:numPoints
+    fprintf('%.4f, %.4f;\n', image_points2(i, 1)/1000, image_points2(i, 2)/1000);
+end
