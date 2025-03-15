@@ -6,6 +6,7 @@ maskPathsList = {maskPathsSet1, maskPathsSet2};
 world_points_list_list = {world_points_list_Set1, world_points_list_Set2};
 image_points_list_list = {image_points_list_Set1, image_points_list_Set2};
 fill_color = 'r'; % color of set 1
+setPairs = set1Pairs;
 
 % Initialise plot
 % figure for plotting
@@ -23,10 +24,11 @@ axis equal;
 title('Camera Positions and 3D Point Cloud for both sets');
 grid on;
 
-for setNo = 1:3
+for setNo = 1:2
     % Set the fill color for the second set
     if setNo == 2
         fill_color = 'b'; % Blue for set 2
+        setPairs = set2Pairs;
     end
 
     % Load paths for the current set
@@ -84,7 +86,7 @@ for setNo = 1:3
     end
 
     % Generate and plot the 3D point cloud
-    points3D = create_point_cloud(imagePaths, maskPaths, P);
+    points3D = create_point_cloud(imagePaths, maskPaths, P, setPairs);
     
     % Scatter plot of 3D points with adjustable size
     scatter3(points3D(1,:), points3D(2,:), points3D(3,:), 50, fill_color, 'filled'); % Adjust size as needed
