@@ -170,3 +170,59 @@ imagePathsSet2 = {'../data/DSCF4180.jpg', '../data/DSCF4181.jpg', '../data/DSCF4
 maskPathsSet2 = {'../data/DSCF4180Mask.jpg', '../data/DSCF4181Mask.jpg', '../data/DSCF4189Mask.jpg', '../data/DSCF4197Mask.jpg'};
 world_points_list_Set2 = {world_points_80, world_points_81, world_points_89, world_points_97};
 image_points_list_Set2 = {image_points_80, image_points_81, image_points_89, image_points_97};
+
+pair80_81 = {
+    1000*[
+    
+    ],...
+    1000*[
+    
+    ]
+};
+
+pair80_89 = {
+    1000*[
+    
+    ],...
+    1000*[
+    
+    ]
+};
+
+pair80_97 = {
+    1000*[
+    
+    ],...
+    1000*[
+    
+    ]
+};
+
+pair81_89 = {
+    1000*[
+    
+    ],...
+    1000*[
+    
+    ]
+};
+
+pair81_97 = {
+    1000*[
+    
+    ],...
+    1000*[
+    
+    ]
+};
+
+pair89_97 = {
+    1000*[
+    
+    ],...
+    1000*[
+    
+    ]
+};
+
+set1Pairs = {pair80_81, pair80_89, pair80_97, pair81_89, pair81_97, pair89_97};

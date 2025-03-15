@@ -72,7 +72,7 @@ for i = 1:numImages
 end
 
 % add point cloud to plot
-points3D = create_point_cloud(imagePaths, maskPaths, P);
+points3D = create_point_cloud(imagePaths, maskPaths, P, set1Pairs);
 
 % Plot 3D points in the same plot
 % 10 here is the point size. Change it to 50 or something to make the point

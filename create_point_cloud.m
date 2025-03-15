@@ -1,5 +1,5 @@
 % try to get around 150 points
-function points3D = create_point_cloud(imagePaths, maskPaths, P) % P - list of camera calibration matrices
+function points3D = create_point_cloud(imagePaths, maskPaths, P, set2Dcorrespondences) % P - list of camera calibration matrices
     % Load images
     numImages = length(imagePaths);
     images = cell(1, numImages);
@@ -7,29 +7,40 @@ function points3D = create_point_cloud(imagePaths, maskPaths, P) % P - list of c
     for i = 1:numImages
         images{i} = imread(imagePaths{i});
     end
-
-    % Extract SIFT features and match points
-    matchedPoints = cell(numImages, numImages);
     
-    for i = 1:numImages
-        for j = i+1:numImages
-            [matchedPoints1_hom, matchedPoints2_hom] = extract_sift(imagePaths{i}, imagePaths{j}, maskPaths{i}, maskPaths{j}, 25000);
-            matchedPoints{i, j} = {matchedPoints1_hom, matchedPoints2_hom};
-        end
-    end
+    % % COMMENTING OUT SIFT PART
+    % % Extract SIFT features and match points
+    % matchedPoints = cell(numImages, numImages);
+    % 
+    % for i = 1:numImages
+    %     for j = i+1:numImages
+    %         [matchedPoints1_hom, matchedPoints2_hom] = extract_sift(imagePaths{i}, imagePaths{j}, maskPaths{i}, maskPaths{j}, 25000);
+    %         matchedPoints{i, j} = {matchedPoints1_hom, matchedPoints2_hom};
+    %     end
+    % end
 
     % Filter matches using epipolar constraints
     filteredMatches = cell(numImages, numImages);
     
+    pairIndex = 0;
     for i = 1:numImages
         for j = i+1:numImages
-            if isempty(matchedPoints{i, j})
+            pairIndex = pairIndex + 1;
+            % if isempty(matchedPoints{i, j})
+            %     continue;
+            % end
+            if isempty(set2Dcorrespondences{pairIndex})
                 continue;
             end
 
             % Compute fundamental matrix
-            [matchedPoints1, matchedPoints2] = deal(matchedPoints{i, j}{:});
-            
+            %[matchedPoints1, matchedPoints2] = deal(matchedPoints{i, j}{:});
+            [matchedPoints1, matchedPoints2] = deal(set2Dcorrespondences{pairIndex}{:});
+
+            %homogenize
+            matchedPoints1 = [matchedPoints1'; ones(1, size(matchedPoints1', 2))];  % 3×N
+            matchedPoints2 = [matchedPoints2'; ones(1, size(matchedPoints2', 2))];  % 3×N
+
             if length(matchedPoints2) < 8 || length(matchedPoints1) < 8 
                 continue;
             end
@@ -52,6 +63,8 @@ function points3D = create_point_cloud(imagePaths, maskPaths, P) % P - list of c
             end
 
             filteredMatches{i, j} = {inliers1, inliers2};
+
+      
         end
     end
 
